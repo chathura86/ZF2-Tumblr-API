@@ -1,5 +1,5 @@
 {
-    "name": "chathura86/zend-tumblr",
+    "name": "chathura86/zf2-tumblr-api",
     "description": "A package to wrap tumblr official api for zend framework 2",
     "require": {
         "tumblr/tumblr": "dev-master",

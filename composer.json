@@ -12,5 +12,13 @@
             "name": "Chathura Bamunusinghe",
             "email": "chathura86@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-0": {
+            "ZF2TumblrAPI": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
 }

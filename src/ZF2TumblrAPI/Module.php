@@ -40,7 +40,7 @@ class Module implements AutoloaderProviderInterface
     {
     	if ($this->config['consumerKey'] === '' || $this->config['consumerSecret'] === '')
     	{
-    		throw new Exception ('ZF2TumblrAPI configs are missing');
+    		throw new \Exception ('ZF2TumblrAPI configs are missing');
     	}
 
     	$tublerClient = new \Tumblr\API\Client($this->config['consumerKey'], $this->config['consumerSecret']);

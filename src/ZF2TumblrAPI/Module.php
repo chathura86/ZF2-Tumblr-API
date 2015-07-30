@@ -13,11 +13,20 @@ class Module implements AutoloaderProviderInterface
 		'consumerSecret' => ''
 	);
 
-	public function onBootstrap(MvcEvent $e)
+	public function onBootstrap(Event $e)
 	{
+		$app = $e->getApplication();
 		$config = $e->getApplication()->getServiceManager()->get('config');
 
 		$this->config = $config['ZF2TumblrAPI'];
+
+		if ($this->config['consumerKey'] === '' || $this->config['consumerSecret'] === '')
+		{
+			throw new \Exception ('ZF2TumblrAPI configs are missing');
+		}
+
+		$tublerClient = new \Tumblr\API\Client($this->config['consumerKey'], $this->config['consumerSecret']);
+		$app->getServiceManager()->setService('ZF2TumblrAPI', $tublerClient);
 	}
 
 	public function getAutoloaderConfig()
@@ -34,21 +43,5 @@ class Module implements AutoloaderProviderInterface
 	public function getConfig()
     {
         return include __DIR__ . '/../../config/module.config.php';
-    }
-
-    public function getServiceConfig()
-    {
-    	if ($this->config['consumerKey'] === '' || $this->config['consumerSecret'] === '')
-    	{
-    		throw new \Exception ('ZF2TumblrAPI configs are missing');
-    	}
-
-    	$tublerClient = new \Tumblr\API\Client($this->config['consumerKey'], $this->config['consumerSecret']);
-
-    	return array(
-    		'services' => array(
-    			'ZF2TumblrAPI' => $tublerClient
-    		)
-    	);
     }
 }
